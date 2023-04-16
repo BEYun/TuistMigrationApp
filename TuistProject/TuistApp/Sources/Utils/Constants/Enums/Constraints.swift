@@ -8,7 +8,7 @@
 import Foundation
 import UIKit
 
-enum Constraint {
+enum DialogViewConstraint {
     static let bottomViewInitHeight = 42
     static let bottomViewHeightPerRow = 22
     static let textViewTopInset = 10

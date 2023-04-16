@@ -10,7 +10,7 @@ import UIKit
 
 class MainTabBarController: UITabBarController {
 
-    let dallaVC = DallaMainViewController()
+    var dallaVC = DallaMainViewController()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -18,14 +18,9 @@ class MainTabBarController: UITabBarController {
     }
     
     private func initControllers() {
-        let kakaoNavigationController = UIStoryboard(name: "Main", bundle: nil)
-            .instantiateViewController(withIdentifier: "kakaoNavigationController") as! UINavigationController
-        let chatGPTNavigationController = UIStoryboard(name: "Main", bundle: nil)
-            .instantiateViewController(withIdentifier: "chatGPTNavigationController") as! UINavigationController
+        self.viewControllers?.append(dallaVC)
         
-        self.setViewControllers([kakaoNavigationController, chatGPTNavigationController, dallaVC], animated: false)
-        
-        dallaVC.tabBarItem = UITabBarItem(title: "달라", image: UIImage(named: "Dalla_logo"), selectedImage: nil)
+        dallaVC.tabBarItem = UITabBarItem(title: "달라", image: UIImage(named: "Dalla_icon"), selectedImage: nil)
     }
     
 }

@@ -12,7 +12,7 @@
         <!--Main Tab Bar Controller-->
         <scene sceneID="i2t-Ot-Vrt">
             <objects>
-                <tabBarController id="dT8-eH-Umn" customClass="MainTabBarController" customModule="TuistApp" customModuleProvider="target" sceneMemberID="viewController">
+                <tabBarController hidesBottomBarWhenPushed="YES" id="dT8-eH-Umn" customClass="MainTabBarController" customModule="TuistApp" customModuleProvider="target" sceneMemberID="viewController">
                     <tabBar key="tabBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="z2n-kN-nza">
                         <rect key="frame" x="0.0" y="0.0" width="393" height="49"/>
                         <autoresizingMask key="autoresizingMask"/>
@@ -31,7 +31,7 @@
         <scene sceneID="p17-Vw-Pis">
             <objects>
                 <navigationController storyboardIdentifier="chatGPTNavigationController" id="SzC-x2-XQ8" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="ChatGPT" image="ChatGPT_logo.svg" id="b7c-xD-bix"/>
+                    <tabBarItem key="tabBarItem" title="ChatGPT" image="ChatGPT_icon" id="b7c-xD-bix"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="AEA-Cl-ImX">
                         <rect key="frame" x="0.0" y="59" width="393" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
@@ -64,7 +64,7 @@
         <scene sceneID="XDK-1t-dkK">
             <objects>
                 <navigationController storyboardIdentifier="kakaoNavigationController" id="xe9-MA-AWi" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="카카오톡" image="Kakao_logo" id="enE-f7-4aC"/>
+                    <tabBarItem key="tabBarItem" title="카카오톡" image="Kakao_icon" id="enE-f7-4aC"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="ufQ-S4-6MI">
                         <rect key="frame" x="0.0" y="59" width="393" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
@@ -245,8 +245,8 @@
         </scene>
     </scenes>
     <resources>
-        <image name="ChatGPT_logo.svg" width="25" height="25"/>
-        <image name="Kakao_logo" width="25" height="25"/>
+        <image name="ChatGPT_icon" width="25" height="25"/>
+        <image name="Kakao_icon" width="25" height="25"/>
         <image name="arrow.up.circle" catalog="system" width="128" height="123"/>
         <image name="arrow.up.circle.fill" catalog="system" width="128" height="123"/>
         <image name="face.smiling" catalog="system" width="128" height="123"/>

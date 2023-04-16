@@ -113,7 +113,7 @@ extension DialogViewController {
         toggleSubmitButton()
         scrollToBottomRow()
         setUpTextView()
-        bottomViewHeightConstraint.constant = CGFloat(Constraint.bottomViewInitHeight)
+        bottomViewHeightConstraint.constant = CGFloat(DialogViewConstraint.bottomViewInitHeight)
     }
     
     func setUpBottomInputView() {
@@ -155,12 +155,12 @@ extension DialogViewController {
     //MARK: 보완할 곳
     func changeTextViewHeight(_ textView: UITextView) {
         let currentLines = textView.numberOfLine()
-        let maxHeightConstraint = CGFloat(Constraint.bottomViewHeightPerRow * 5 + Constraint.textViewTopInset)
-        let dynamicHeight = CGFloat(Constraint.bottomViewHeightPerRow * currentLines + Constraint.textViewTopInset)
+        let maxHeightConstraint = CGFloat(DialogViewConstraint.bottomViewHeightPerRow * 5 + DialogViewConstraint.textViewTopInset)
+        let dynamicHeight = CGFloat(DialogViewConstraint.bottomViewHeightPerRow * currentLines + DialogViewConstraint.textViewTopInset)
         
         switch currentLines {
         case 1:
-            bottomViewHeightConstraint.constant = CGFloat(Constraint.bottomViewInitHeight)
+            bottomViewHeightConstraint.constant = CGFloat(DialogViewConstraint.bottomViewInitHeight)
             textView.textContainerInset = TextViewInset.initial
         case 2...4:
             bottomViewHeightConstraint.constant = dynamicHeight
