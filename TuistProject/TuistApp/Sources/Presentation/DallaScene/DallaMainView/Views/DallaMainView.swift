@@ -10,16 +10,11 @@ import UIKit
 import SnapKit
 
 class DallaMainView: UIView {
-    let dallaHeaderMenu = DallaHeaderMenu()
+    typealias Constraint = DallaMainConstraint
     
-    private func initUI() {
-        addSubview(dallaHeaderMenu)
-        dallaHeaderMenu.snp.makeConstraints { make in
-            make.height.equalTo(52)
-            make.leading.trailing.equalToSuperview()
-            make.centerY.equalToSuperview()
-        }
-    }
+    let headerMenuView = DallaHeaderMenuView()
+    let contentView = DallaContentView()
+    let footerView = DallaFooterView()
     
     init() {
         super.init(frame: .zero)
@@ -28,6 +23,46 @@ class DallaMainView: UIView {
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
+    }
+    
+    private func initUI() {
+        // addSubViews
+        addSubview(contentView)
+        addSubview(headerMenuView)
+        addSubview(footerView)
+        
+        // SnapKit Layout Methods
+        setUpHeaderView()
+        setUpContentView()
+        setUpFooterView()
+    }
+    
+    
+    private func setUpHeaderView() {
+        headerMenuView.snp.makeConstraints {
+            $0.leading.trailing.equalToSuperview()
+            $0.top.equalToSuperview()
+            $0.height.equalTo(Constraint.headerViewHeight + UIApplication.shared.safeAreaEdgeInsets.top)
+        }
+        headerMenuView.backgroundColor?.withAlphaComponent(0)
+    }
+    
+    private func setUpContentView() {
+        contentView.snp.makeConstraints {
+            $0.top.leading.trailing.equalToSuperview()
+            $0.bottom.equalTo(footerView.snp.top)
+        }
+        
+        // 스크롤 인셋 제거
+        contentView.contentInsetAdjustmentBehavior = .never
+    }
+    
+    private func setUpFooterView() {
+        footerView.snp.makeConstraints {
+            $0.bottom.equalTo(safeAreaLayoutGuide)
+            $0.leading.trailing.equalToSuperview()
+            $0.height.equalTo(Constraint.footerViewHeight)
+        }
     }
     
     deinit {
