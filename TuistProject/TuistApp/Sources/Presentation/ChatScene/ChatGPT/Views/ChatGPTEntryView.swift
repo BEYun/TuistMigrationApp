@@ -27,8 +27,8 @@ class ChatGPTEntryView: UIView {
     }
     
     private func setUpEntryButton() {
-        entryButton.snp.makeConstraints { make in
-            make.center.equalToSuperview()
+        entryButton.snp.makeConstraints {
+            $0.center.equalToSuperview()
         }
     }
     
