@@ -35,6 +35,9 @@ let project = Project.makeModule(
     ],
     dependencies: [
         .package(product: "SnapKit"),
-        .package(product: "Then")
+        .package(product: "Then"),
+        .package(product: "Alamofire"),
+        .package(product: "SwiftyJSON"),
+        .package(product: "Kingfisher")
     ]
 )
