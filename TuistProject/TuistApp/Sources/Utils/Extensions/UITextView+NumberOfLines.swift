@@ -1,5 +1,5 @@
 //
-//  UITextViewExtension.swift
+//  UITextView+NumberOfLines.swift
 //  KakaoTalkUIPractice
 //
 //  Created by BEYun on 2023/03/22.

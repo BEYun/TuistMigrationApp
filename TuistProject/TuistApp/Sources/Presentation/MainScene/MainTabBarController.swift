@@ -7,10 +7,10 @@
 //
 
 import UIKit
+import Alamofire
 
 class MainTabBarController: UITabBarController {
-
-    var dallaVC = DallaMainViewController()
+    lazy var dallaVC = DallaMainViewController(dallaMainView: DallaMainView(), viewModel: DallaMainViewModel())
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -22,5 +22,4 @@ class MainTabBarController: UITabBarController {
         
         dallaVC.tabBarItem = UITabBarItem(title: "달라", image: UIImage(named: "Dalla_icon"), selectedImage: nil)
     }
-    
 }

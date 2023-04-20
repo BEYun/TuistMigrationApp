@@ -7,23 +7,23 @@
 
 import Foundation
 
-enum ChatGPTEndPoint {
+enum ChatGPTNetworkConfig {
     case completions
 }
 
-extension ChatGPTEndPoint {
+extension ChatGPTNetworkConfig {
     var url: URL {
         get throws {
             switch self {
             case .completions:
-                return try URL.makeForEndpoint("/v1/chat/completions")
+                return try URL.makeChatGPTURL("/v1/chat/completions")
             }
         }
     }
 }
 
 private extension URL {
-    static func makeForEndpoint(_ endpoint: String) throws -> URL {
+    static func makeChatGPTURL(_ endpoint: String) throws -> URL {
         guard let url = URL(string: "https://api.openai.com\(endpoint)") else {
             throw NetworkError.invalidURL
         }

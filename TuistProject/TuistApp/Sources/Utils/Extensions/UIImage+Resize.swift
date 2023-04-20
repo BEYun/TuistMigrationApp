@@ -1,5 +1,5 @@
 //
-//  UIImageExtension.swift
+//  UIImage+Resize.swift
 //  KakaoTalkUIPractice
 //
 //  Created by BEYun on 2023/03/30.
