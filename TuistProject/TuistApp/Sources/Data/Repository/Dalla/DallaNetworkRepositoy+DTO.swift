@@ -86,4 +86,17 @@ extension DallaBannerListDTO {
                                badgeSpecial: badgeSpecial,
                                backgroundImageURL: backgroundImageURL)
     }
+  
+    // Index Test Function
+//    func toModel(index: Int) -> DallaBannerList {
+//        let memNick = self.memNick
+//        let title = self.title + "\(index)"
+//        let badgeSpecial = self.badgeSpecial
+//        let backgroundImageURL = self.imageBackground
+//
+//        return DallaBannerList(memNick: memNick,
+//                               title: title,
+//                               badgeSpecial: badgeSpecial,
+//                               backgroundImageURL: backgroundImageURL)
+//    }
 }
