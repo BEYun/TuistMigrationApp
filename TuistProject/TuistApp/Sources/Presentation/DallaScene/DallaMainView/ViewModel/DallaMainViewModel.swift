@@ -25,7 +25,10 @@ class DallaMainViewModel {
     init() {
         fetchBannerList()
     }
-    
+}
+
+// MARK: DallaMainBanner Methods
+extension DallaMainViewModel {
     func fetchBannerList() {
         networkRepository.fetchData { [weak self] json in
             let bannerList = self?.makeBannerList(json: json)
@@ -46,8 +49,13 @@ class DallaMainViewModel {
         }
         return []
     }
+    
+    private func fetchScrollDummyData() {
+        
+    }
 }
 
+// MARK: DallaMainBanner DataSource Methods
 extension DallaMainViewModel: MainBannerAdapterDataSource {
     var mainBannerItemCount: Int {
         bannerList.count
@@ -58,12 +66,15 @@ extension DallaMainViewModel: MainBannerAdapterDataSource {
     }
 }
 
+// MARK: DallaMainBanner Delegate Methods
 extension DallaMainViewModel: MainBannerAdapterDelegate {
     func didSelectMainBannerItem(item: String) {
         print(item)
     }
 }
 
+
+// MARK: DallaBJStory DataSource Methods
 extension DallaMainViewModel: BJStoryAdapterDataSource {
     var bjStoryItemCount: Int {
         items2.count
@@ -74,4 +85,5 @@ extension DallaMainViewModel: BJStoryAdapterDataSource {
     }
 }
 
+// MARK: DallaBJStory Delegate Methods
 extension DallaMainViewModel: BJStoryAdapterDelegate {}
