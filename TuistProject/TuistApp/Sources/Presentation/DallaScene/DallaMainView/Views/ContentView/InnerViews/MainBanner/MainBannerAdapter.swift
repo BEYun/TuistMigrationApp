@@ -8,19 +8,20 @@
 
 import UIKit
 
+// MainBanner CollectionView DataSource 위임을 위한 Protocol
 protocol MainBannerAdapterDataSource: AnyObject {
     var mainBannerItemCount: Int { get }
     
     func getMainBannerItem(at index: Int) -> DallaBannerList
 }
-
+// MainBanner CollectionView Delegate 위임을 위한 Protocol
 protocol MainBannerAdapterDelegate: AnyObject {
     func didSelectMainBannerItem(item: String)
 }
 
 class MainBannerAdapter: NSObject {
-    private var timer: DispatchSourceTimer?
-    private var autoScrollTime: Int = 5
+    let timer = RepeatingActionTimer()
+    private let autoScrollTime: Int = 5
     
     weak var adapterDataSource: MainBannerAdapterDataSource?
     weak var adapterDelegate: MainBannerAdapterDelegate?
@@ -29,33 +30,29 @@ class MainBannerAdapter: NSObject {
         super.init()
         collectionView.dataSource = self
         collectionView.delegate = self
+        
+        setUpTimerAction(collectionView: collectionView)
     }
     
-    public func makeTimer() {
-        if timer == nil {
-            timer = DispatchSource.makeTimerSource(flags: [], queue: DispatchQueue.main)
-            timer?.schedule(deadline: .now(), repeating: .seconds(autoScrollTime))
-            timer?.setEventHandler(handler: {
-                
-            })
+    // 자동 스크롤 기능인 autoScroll 메소드를 timer의 Handler의 클로저에서 호출
+    private func setUpTimerAction(collectionView: UICollectionView) {
+        timer.makeTimer(deadline: .now(), repeating: autoScrollTime) { [weak self] in
+            self?.autoScroll(collectionView: collectionView)
         }
+    }
+    
+    // 자동 스크롤 기능
+    private func autoScroll(collectionView: UICollectionView) {
+        let nextPageIndex = trunc((collectionView.contentOffset.x + collectionView.frame.width) / collectionView.frame.width),
+            nextPageOffset = CGPoint(x: nextPageIndex * collectionView.frame.width, y: 0)
         
-        timer?.resume()
-        
-    }
-    
-    private func resumeTimer() {
-        timer?.resume()
-    }
-    
-    private func suspendTimer() {
-        timer?.suspend()
-    }
-    
-    private func cancelTimer() {
-        timer?.cancel()
-    }
+        collectionView.setContentOffset(nextPageOffset, animated: true)
 
+    }
+    
+    deinit {
+        timer.cancelTimer()
+    }
     
 }
 
@@ -86,19 +83,18 @@ extension MainBannerAdapter: UICollectionViewDelegate {
 
         if offsetX < 0 {
             scrollView.contentOffset.x = contentWidth - scrollViewWidth
-        } else if offsetX > contentWidth - scrollViewWidth {
+        } else if offsetX >= contentWidth - scrollViewWidth {
             scrollView.contentOffset.x = 0
         }
     }
     
+    // 
     func scrollViewWillBeginDragging(_ scrollView: UIScrollView) {
-        print("stop")
-        suspendTimer()
+        timer.suspendTimer()
     }
     
     func scrollViewDidEndDragging(_ scrollView: UIScrollView, willDecelerate decelerate: Bool) {
-        print("start")
-        resumeTimer()
+        timer.resumeTimer()
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
@@ -108,3 +104,15 @@ extension MainBannerAdapter: UICollectionViewDelegate {
     }
 }
 
+
+
+//func moveToNext() {
+//       guard !isHolding else { return }
+//
+//       let nextPageIndex = trunc((self.contentOffset.x + self.frame.width) / self.frame.width),
+//           nextPageOffset = CGPoint(x: nextPageIndex * self.frame.width, y: 0)
+//
+//       
+//
+//       self.setContentOffset(nextPageOffset, animated: true)
+//   }
