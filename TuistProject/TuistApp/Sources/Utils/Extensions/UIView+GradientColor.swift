@@ -9,26 +9,22 @@
 import UIKit
 
 extension UIView {
-    func setGradientLayer(colors: [UIColor]) {
+    func setGradientLayer(colors: [CGColor]) {
         let gradientLayer = CAGradientLayer()
         gradientLayer.frame = self.bounds
-        
+        gradientLayer.cornerRadius = self.bounds.width / 2
         gradientLayer.colors = colors
-        self.layer.addSublayer(gradientLayer)
+        
+        self.layer.insertSublayer(gradientLayer, at: 0)
     }
 }
 
 
 enum GradientColor {
-    // DallaMainBannerView Gradient
-    static let mainBannerDefaultColors: [UIColor] = [UIColor(cgColor: CGColor(red: 255, green: 255, blue: 255, alpha: 0)),
-                                                       UIColor(cgColor: CGColor(red: 255, green: 255, blue: 255, alpha: 0.8)),
-                                                       UIColor(cgColor: CGColor(red: 255, green: 255, blue: 255, alpha: 1))]
-    
     // DallaBJStoryView Gradient
-    static let activatedColors: [UIColor] = [UIColor(cgColor: CGColor(red: 255, green: 60, blue: 123, alpha: 1)),
-                                            UIColor(cgColor: CGColor(red: 255, green: 133, blue: 101, alpha: 1))]
+    static let activatedColors: [CGColor] = [UIColor(red: 255 / 255, green: 60 / 255, blue: 123 / 255, alpha: 1).cgColor,
+                                             UIColor(red: 255 / 255, green: 133 / 255, blue: 101 / 255, alpha: 1).cgColor]
     
-    static let deactivatedColors: [UIColor] = [UIColor(cgColor: CGColor(red: 204, green: 204, blue: 204, alpha: 1)),
-                                              UIColor(cgColor: CGColor(red: 255, green: 255, blue: 255, alpha: 1))]
+    static let deactivatedColors: [CGColor] = [UIColor(red: 204 / 255, green: 204 / 255, blue: 204 / 255, alpha: 1).cgColor,
+                                               UIColor(red: 255 / 255, green: 255 / 255, blue: 255 / 255, alpha: 1).cgColor]
 }
