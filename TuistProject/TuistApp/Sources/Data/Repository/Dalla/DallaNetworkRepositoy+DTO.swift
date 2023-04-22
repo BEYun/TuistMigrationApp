@@ -10,6 +10,7 @@ import Foundation
 import SwiftyJSON
 
 //MARK: DallaBannerList의 response를 파싱할 수 있는 DTO
+
 struct DallaBannerListDTO {
     let memNo: String
     let subjectType: String
@@ -74,8 +75,10 @@ struct DallaBannerListDTO {
 }
 
 //MARK: 필요한 데이터 모델로 변환
+
 extension DallaBannerListDTO {
-    func toModel() -> DallaBannerList {
+    // BannerListModel
+    func toBannerListModel() -> DallaBannerList {
         let memNick = self.memNick
         let title = self.title
         let badgeSpecial = self.badgeSpecial
@@ -86,17 +89,28 @@ extension DallaBannerListDTO {
                                badgeSpecial: badgeSpecial,
                                backgroundImageURL: backgroundImageURL)
     }
+    
+    // BJStoryModel
+    func toBJStoryModel() -> DallaBJStory {
+        let memNick = self.memNick
+        let profileImageURL = self.profileImage["thumb80x80"]
+        let isChecked = false
+        
+        return DallaBJStory(memNick: memNick,
+                            profileImageUrl: profileImageURL,
+                            isChecked: isChecked)
+    }
   
     // Index Test Function
-//    func toModel(index: Int) -> DallaBannerList {
-//        let memNick = self.memNick
-//        let title = self.title + "\(index)"
-//        let badgeSpecial = self.badgeSpecial
-//        let backgroundImageURL = self.imageBackground
-//
-//        return DallaBannerList(memNick: memNick,
-//                               title: title,
-//                               badgeSpecial: badgeSpecial,
-//                               backgroundImageURL: backgroundImageURL)
-//    }
+    func toBannerListModel(index: Int) -> DallaBannerList {
+        let memNick = self.memNick
+        let title = self.title + "\(index)"
+        let badgeSpecial = self.badgeSpecial
+        let backgroundImageURL = self.imageBackground
+
+        return DallaBannerList(memNick: memNick,
+                               title: title,
+                               badgeSpecial: badgeSpecial,
+                               backgroundImageURL: backgroundImageURL)
+    }
 }

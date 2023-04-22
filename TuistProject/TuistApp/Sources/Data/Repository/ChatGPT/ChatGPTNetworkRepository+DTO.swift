@@ -8,6 +8,7 @@
 import Foundation
 
 // MARK: ChatResponseDTO
+
 struct ChatResponseDTO: Codable {
     let id: String
     let object: String
@@ -29,6 +30,7 @@ extension ChatResponseDTO {
 }
 
 // MARK: Choice
+
 struct Choice: Codable {
     let index: Int
     let message: Message
@@ -41,12 +43,14 @@ struct Choice: Codable {
 }
 
 // MARK: Message
+
 struct Message: Codable {
     let role: String
     let content: String
 }
 
 // MARK: Usage
+
 struct Usage: Codable {
     let promptTokens: Int
     let completionTokens: Int
@@ -59,7 +63,8 @@ struct Usage: Codable {
     }
 }
 
-// MARK: - ChatRequestDTO
+// MARK: ChatRequestDTO
+
 struct ChatRequestDTO: Codable {
     let model: String = "gpt-3.5-turbo"
     let messages: [Message]
