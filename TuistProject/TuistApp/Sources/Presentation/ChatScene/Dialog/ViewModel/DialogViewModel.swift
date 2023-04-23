@@ -72,6 +72,7 @@ class DialogViewModel {
 }
 
 // MARK: DialogViewModel Get Methods
+
 extension DialogViewModel {
     func getUser(_ id: Int) -> User {
         guard let user = users.first(where: {$0.id == id}) else { return User(id: 0, userName: "nil") }
@@ -105,6 +106,7 @@ extension DialogViewModel {
 }
 
 // MARK: DialogViewModel Set Methods
+
 extension DialogViewModel {
     func addTextDialog(_ message: String) {
         var content: MessageContent
