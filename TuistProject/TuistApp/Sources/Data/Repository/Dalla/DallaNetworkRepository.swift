@@ -21,6 +21,7 @@ class DallaNetworkRepository {
     func fetchData(completion: @escaping (JSON) -> Void) {
         let networkServiceAF = NetworkServiceAF(networkConfig: config)
         networkServiceAF.networkRequest(networkConfig: config) { result in
+            // completion으로 받은 result를 Result<JSON, Error> 타입으로 타입캐스팅
             let result = result as ResultType
             
             switch result {
