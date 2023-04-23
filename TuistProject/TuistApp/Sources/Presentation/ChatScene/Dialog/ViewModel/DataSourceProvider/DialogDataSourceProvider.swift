@@ -32,6 +32,7 @@ class DialogDataSourceProvider: NSObject, DialogDataSourceProtocol {
 }
 
 // MARK: UITableView Delegate and DataSource
+
 extension DialogDataSourceProvider: UITableViewDelegate, UITableViewDataSource {
     public func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
         guard let cell = cell as? DynamicHeightCellProtocol else { return }

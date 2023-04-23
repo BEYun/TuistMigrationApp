@@ -107,6 +107,7 @@ class DialogViewController: UIViewController {
 }
 
 // MARK: Layout SetUp Method
+
 extension DialogViewController {
     func initBottomInputView() {
         textView.text = ""
@@ -153,6 +154,7 @@ extension DialogViewController {
     
     
     //MARK: 보완할 곳
+    
     func changeTextViewHeight(_ textView: UITextView) {
         let currentLines = textView.numberOfLine()
         let maxHeightConstraint = CGFloat(DialogViewConstraint.bottomViewHeightPerRow * 5 + DialogViewConstraint.textViewTopInset)
@@ -203,6 +205,7 @@ extension DialogViewController {
 }
 
 // MARK: IBActions
+
 extension DialogViewController {
     @IBAction func submitButtonTapped(_ sender: UIButton) {
         guard let text = textView.text else { return }
@@ -219,6 +222,7 @@ extension DialogViewController {
 }
 
 // MARK: objc Method
+
 extension DialogViewController {
     @objc
     private func keyboardToggleAnimate(_ sender: Notification) {

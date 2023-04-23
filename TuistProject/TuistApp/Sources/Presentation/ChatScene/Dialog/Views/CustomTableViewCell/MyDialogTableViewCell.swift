@@ -47,6 +47,7 @@ class MyDialogTableViewCell: UITableViewCell {
 }
 
 // MARK: Custom Methods
+
 extension MyDialogTableViewCell: DynamicHeightCellProtocol {
     func setDynamicHeight() {
         layoutIfNeeded()

@@ -50,6 +50,7 @@ class OpponentDialogTableViewCell: UITableViewCell {
 }
 
 // MARK: Custom Methods
+
 extension OpponentDialogTableViewCell: DynamicHeightCellProtocol {
     func setDynamicHeight() {
         layoutIfNeeded()
