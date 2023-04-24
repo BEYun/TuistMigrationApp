@@ -7,24 +7,34 @@
 //
 
 import UIKit
+
 import SnapKit
 import Then
 
 class DallaContentView: UIScrollView {
-    let stackView = UIStackView().then {
+    typealias Constraint = DallaContentViewConstraint
+    
+    let viewModel: DallaMainViewModel
+    
+    let contentStackView = UIStackView().then {
         $0.axis = .vertical
-    }
-    let mainBannerCollectionView = DallaMainBannerCollectionView()
-    let bjStoryCollectionView = DallaBJStoryCollectionView()
-    let topTenHeaderView = DallaTopTenHeaderView()
-    let view4 = UIView().then {
-        $0.backgroundColor = .green
-    }
-    let view5 = UIView().then {
-        $0.backgroundColor = .blue
+        
     }
     
-    init() {
+    let mainBannerCollectionView = DallaMainBannerCollectionView()
+    
+    let bjStoryCollectionView = DallaBJStoryCollectionView()
+    
+    let topTenView: DallaTopTenView
+    
+    let newBJView: DallaNewBJView
+    
+    let adBannerCollectionView = DallaADBannerCollectionView()
+    
+    init(viewModel: DallaMainViewModel) {
+        self.viewModel = viewModel
+        self.topTenView = DallaTopTenView(viewModel: viewModel)
+        self.newBJView = DallaNewBJView(viewModel: viewModel)
         super.init(frame: .zero)
         initUI()
     }
@@ -34,51 +44,66 @@ class DallaContentView: UIScrollView {
     }
     
     private func initUI() {
-        let viewArray = [mainBannerCollectionView, bjStoryCollectionView, topTenHeaderView, view4, view5]
+        let viewArray = [mainBannerCollectionView, bjStoryCollectionView, topTenView, newBJView, adBannerCollectionView]
         
         // addSubViews
         viewArray.forEach { view in
-            stackView.addArrangedSubview(view)
+            contentStackView.addArrangedSubview(view)
         }
-        addSubview(stackView)
+        addSubview(contentStackView)
         
         // SnapKit Layout Methods
-        setUpViews()
+        setUpContentStackView()
+        setUpMainBannerCollectionView()
+        setUpBJStoryCollectionView()
+        setUpTopTenView()
+        setUpNewBJView()
+        setUpADBannerCollectionViews()
     }
     
-    private func setUpViews() {
-        stackView.snp.makeConstraints {
+    private func setUpContentStackView() {
+        contentStackView.snp.makeConstraints {
             $0.width.equalToSuperview()
             $0.edges.equalToSuperview()
         }
-        
+    }
+    
+    private func setUpMainBannerCollectionView() {
         mainBannerCollectionView.snp.makeConstraints {
             $0.top.leading.trailing.equalToSuperview()
-            $0.height.equalTo(stackView.snp.width)
+            $0.leading.trailing.equalToSuperview()
+            $0.height.equalTo(Constraint.mainBannerViewHeight)
         }
-        
+    }
+    
+    private func setUpBJStoryCollectionView() {
         bjStoryCollectionView.snp.makeConstraints {
             $0.leading.trailing.equalToSuperview()
             $0.top.equalTo(mainBannerCollectionView.snp.bottom)
-            $0.height.equalTo(120)
+            $0.height.equalTo(Constraint.bjStoryViewHeight)
         }
-        
-        topTenHeaderView.snp.makeConstraints {
+    }
+    
+    private func setUpTopTenView() {
+        topTenView.snp.makeConstraints {
             $0.leading.trailing.equalToSuperview()
             $0.top.equalTo(bjStoryCollectionView.snp.bottom)
-            $0.height.equalTo(26)
+            $0.height.equalTo(Constraint.topTenViewHeight + Constraint.topTenOffset)
         }
-        
-        view4.snp.makeConstraints {
+    }
+    
+    private func setUpNewBJView() {
+        newBJView.snp.makeConstraints {
             $0.leading.trailing.equalToSuperview()
-            $0.top.equalTo(topTenHeaderView.snp.bottom)
-            $0.height.equalTo(200)
+            $0.top.equalTo(topTenView.snp.bottom)
+            $0.height.equalTo(Constraint.newBJViewHeight + Constraint.newBJTopOffset)
         }
-        
-        view5.snp.makeConstraints {
+    }
+    private func setUpADBannerCollectionViews() {
+        adBannerCollectionView.snp.makeConstraints {
             $0.leading.trailing.equalToSuperview()
-            $0.top.equalTo(view4.snp.bottom)
-            $0.height.equalTo(200)
+            $0.top.equalTo(newBJView.snp.bottom)
+            $0.height.equalTo(Constraint.adBannerHeight + Constraint.adBannerTopOffset)
             $0.bottom.equalToSuperview()
         }
     }

@@ -9,18 +9,23 @@
 import UIKit
 
 extension UIView {
-    func setGradientLayer(colors: [CGColor]) {
+    func makeGradientLayer(colors: [CGColor], locations: [NSNumber]?) -> CAGradientLayer {
         let gradientLayer = CAGradientLayer()
         gradientLayer.frame = self.bounds
-        gradientLayer.cornerRadius = self.bounds.width / 2
         gradientLayer.colors = colors
-        
-        self.layer.insertSublayer(gradientLayer, at: 0)
+        gradientLayer.locations = locations
+  
+        return gradientLayer
     }
 }
 
 
 enum GradientColor {
+    // DallaMainBanner Gradient
+    static let bannerViewColors: [CGColor] = [UIColor(red: 255 / 255, green: 255 / 255, blue: 255 / 255, alpha: 0).cgColor,
+                                              UIColor(red: 255 / 255, green: 255 / 255, blue: 255 / 255, alpha: 0.8).cgColor,
+                                              UIColor(red: 255 / 255, green: 255 / 255, blue: 255 / 255, alpha: 1).cgColor]
+    
     // DallaBJStoryView Gradient
     static let activatedColors: [CGColor] = [UIColor(red: 255 / 255, green: 60 / 255, blue: 123 / 255, alpha: 1).cgColor,
                                              UIColor(red: 255 / 255, green: 133 / 255, blue: 101 / 255, alpha: 1).cgColor]

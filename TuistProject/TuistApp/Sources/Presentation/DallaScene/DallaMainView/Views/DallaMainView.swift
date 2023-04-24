@@ -7,16 +7,21 @@
 //
 
 import UIKit
+
 import SnapKit
 
 class DallaMainView: UIView {
     typealias Constraint = DallaMainConstraint
     
+    let viewModel: DallaMainViewModel
+    
     let headerMenuView = DallaHeaderMenuView()
-    let contentView = DallaContentView()
+    let contentView: DallaContentView
     let footerView = DallaFooterView()
     
-    init() {
+    init(viewModel: DallaMainViewModel) {
+        self.viewModel = viewModel
+        self.contentView = DallaContentView(viewModel: viewModel)
         super.init(frame: .zero)
         initUI()
     }

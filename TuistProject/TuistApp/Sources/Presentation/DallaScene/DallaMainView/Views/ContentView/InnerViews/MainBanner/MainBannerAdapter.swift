@@ -8,11 +8,13 @@
 
 import UIKit
 
+// MARK: MainBannerCollectionView와 MainViewModel간의 Data Binding을 위한 Adapter Class
+
 // MainBanner CollectionView DataSource 위임을 위한 Protocol
 protocol MainBannerAdapterDataSource: AnyObject {
     var mainBannerItemCount: Int { get }
     
-    func getMainBannerItem(at index: Int) -> DallaBannerList
+    func getMainBannerItem(at index: Int) -> DallaMainBanner
 }
 // MainBanner CollectionView Delegate 위임을 위한 Protocol
 protocol MainBannerAdapterDelegate: AnyObject {
@@ -22,6 +24,7 @@ protocol MainBannerAdapterDelegate: AnyObject {
 class MainBannerAdapter: NSObject {
     let timer = RepeatingActionTimer()
     private let autoScrollTime: Int = 5
+    private var isAutoScroll: Bool = true
     
     weak var adapterDataSource: MainBannerAdapterDataSource?
     weak var adapterDelegate: MainBannerAdapterDelegate?
@@ -36,7 +39,7 @@ class MainBannerAdapter: NSObject {
     
     // 자동 스크롤 기능인 autoScroll 메소드를 timer의 Handler의 클로저에서 호출
     private func setUpTimerAction(collectionView: UICollectionView) {
-        timer.makeTimer(deadline: .now(), repeating: autoScrollTime) { [weak self] in
+        timer.makeTimer(deadline: .now() + .seconds(autoScrollTime), repeating: autoScrollTime) { [weak self] in
             self?.autoScroll(collectionView: collectionView)
         }
     }
@@ -68,13 +71,17 @@ extension MainBannerAdapter: UICollectionViewDataSource {
                 as? DallaMainBannerCell else { return DallaMainBannerCell() }
         guard let item = adapterDataSource?.getMainBannerItem(at: indexPath.row) else { return DallaMainBannerCell() }
         
-        cell.configure(bannerList: item)
+        cell.setNeedsLayout()
+        cell.layoutIfNeeded()
+        
+        cell.configure(banner: item)
         
         return cell
     }
 }
 
 extension MainBannerAdapter: UICollectionViewDelegate {
+    
     // MainBannerCollectionView 가로 무한 스크롤
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
         let offsetX = scrollView.contentOffset.x
@@ -83,18 +90,26 @@ extension MainBannerAdapter: UICollectionViewDelegate {
 
         if offsetX < 0 {
             scrollView.contentOffset.x = contentWidth - scrollViewWidth
-        } else if offsetX >= contentWidth - scrollViewWidth {
+        } else if offsetX > contentWidth - scrollViewWidth {
             scrollView.contentOffset.x = 0
+        } else if offsetX == contentWidth - scrollViewWidth {
+            if isAutoScroll {
+                scrollView.contentOffset.x = 0
+            }
         }
     }
     
-    // 
+    // 스크롤 시작 시, 타이머 일시정지
     func scrollViewWillBeginDragging(_ scrollView: UIScrollView) {
         timer.suspendTimer()
+        isAutoScroll = false
     }
     
+    
+    // 스크롤 끝날 시, 타이머 재개
     func scrollViewDidEndDragging(_ scrollView: UIScrollView, willDecelerate decelerate: Bool) {
         timer.resumeTimer()
+        isAutoScroll = true
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
@@ -103,16 +118,3 @@ extension MainBannerAdapter: UICollectionViewDelegate {
         adapterDelegate?.didSelectMainBannerItem(item: title)
     }
 }
-
-
-
-//func moveToNext() {
-//       guard !isHolding else { return }
-//
-//       let nextPageIndex = trunc((self.contentOffset.x + self.frame.width) / self.frame.width),
-//           nextPageOffset = CGPoint(x: nextPageIndex * self.frame.width, y: 0)
-//
-//       
-//
-//       self.setContentOffset(nextPageOffset, animated: true)
-//   }

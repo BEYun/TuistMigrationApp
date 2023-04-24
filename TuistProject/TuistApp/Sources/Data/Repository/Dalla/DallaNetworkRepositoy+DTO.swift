@@ -7,6 +7,7 @@
 //
 
 import Foundation
+
 import SwiftyJSON
 
 //MARK: DallaBannerList의 response를 파싱할 수 있는 DTO
@@ -78,13 +79,13 @@ struct DallaBannerListDTO {
 
 extension DallaBannerListDTO {
     // BannerListModel
-    func toBannerListModel() -> DallaBannerList {
+    func toBannerListModel() -> DallaMainBanner {
         let memNick = self.memNick
         let title = self.title
         let badgeSpecial = self.badgeSpecial
         let backgroundImageURL = self.imageBackground
         
-        return DallaBannerList(memNick: memNick,
+        return DallaMainBanner(memNick: memNick,
                                title: title,
                                badgeSpecial: badgeSpecial,
                                backgroundImageURL: backgroundImageURL)
@@ -102,13 +103,13 @@ extension DallaBannerListDTO {
     }
   
     // Index Test Function
-    func toBannerListModel(index: Int) -> DallaBannerList {
+    func toBannerListModel(index: Int) -> DallaMainBanner {
         let memNick = self.memNick
         let title = self.title + "\(index)"
         let badgeSpecial = self.badgeSpecial
         let backgroundImageURL = self.imageBackground
 
-        return DallaBannerList(memNick: memNick,
+        return DallaMainBanner(memNick: memNick,
                                title: title,
                                badgeSpecial: badgeSpecial,
                                backgroundImageURL: backgroundImageURL)

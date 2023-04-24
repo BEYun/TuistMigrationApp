@@ -7,10 +7,22 @@
 //
 
 import UIKit
+
 import SnapKit
 import Then
 
+enum HeaderViewButtonState {
+    case bj
+    case fan
+    case team
+}
+
+protocol TopTenHeaderViewDelegate: AnyObject {
+    func didTapHeaderButton(state: HeaderViewButtonState)
+}
+
 class DallaTopTenHeaderView: UIView {
+    // UI Comopnents
     let topTenTitleButton = UIButton().then {
         $0.setTitle("🏆 NOW TOP 10 >", for: .normal)
         $0.setTitleColor(UIColor.black, for: .normal)
@@ -20,7 +32,7 @@ class DallaTopTenHeaderView: UIView {
     
     let bjCategoryButton = UIButton().then {
         $0.setTitle("BJ", for: .normal)
-        $0.setTitleColor(UIColor.customGray, for: .normal)
+        $0.setTitleColor(UIColor.grayFontColor, for: .normal)
         $0.setTitleColor(UIColor.black, for: .selected)
         $0.isSelected = true
         $0.titleLabel?.font = UIFont(name: "SUIT-SemiBold", size: 13)
@@ -28,14 +40,14 @@ class DallaTopTenHeaderView: UIView {
     
     let fanCategoryButton = UIButton().then {
         $0.setTitle("FAN", for: .normal)
-        $0.setTitleColor(UIColor.customGray, for: .normal)
+        $0.setTitleColor(UIColor.grayFontColor, for: .normal)
         $0.setTitleColor(UIColor.black, for: .selected)
         $0.titleLabel?.font = UIFont(name: "SUIT-SemiBold", size: 13)
     }
     
     let teamCategoryButton = UIButton().then {
         $0.setTitle("TEAM", for: .normal)
-        $0.setTitleColor(UIColor.customGray, for: .normal)
+        $0.setTitleColor(UIColor.grayFontColor, for: .normal)
         $0.setTitleColor(UIColor.black, for: .selected)
         $0.titleLabel?.font = UIFont(name: "SUIT-SemiBold", size: 13)
     }
@@ -44,7 +56,10 @@ class DallaTopTenHeaderView: UIView {
         $0.axis = .horizontal
         $0.alignment = .center
         $0.distribution = .equalSpacing
+        $0.spacing = 4
     }
+    
+    weak var delegate: TopTenHeaderViewDelegate?
     
     init() {
         super.init(frame: .zero)
@@ -72,7 +87,9 @@ class DallaTopTenHeaderView: UIView {
         // SnapKit Layout Methods
         setUpTopTenTitleButton()
         setUpCategoryButtonStackView()
-        setUpBJCategoryButton()
+        
+        // Button Action Methods
+        setActionCategoryButtons()
     }
     
     private func setUpTopTenTitleButton() {
@@ -86,12 +103,15 @@ class DallaTopTenHeaderView: UIView {
         categoryButtonStackView.snp.makeConstraints {
             $0.top.bottom.equalToSuperview()
             $0.trailing.equalToSuperview().inset(DallaDefaultConstraint.horizontalInset)
-            $0.width.equalTo(140)
+            $0.width.equalTo(DallaTopTenConstraint.categoryStackViewWidth)
         }
     }
     
-    private func setUpBJCategoryButton() {
-        bjCategoryButton.setTitleColor(UIColor.customGray, for: .normal)
+    private func setActionCategoryButtons() {
+        let categoryButtonArray = [bjCategoryButton, fanCategoryButton, teamCategoryButton]
+        categoryButtonArray.forEach { button in
+            button.addTarget(self, action: #selector(categoryButtonTapped(_:)), for: .touchUpInside)
+        }
     }
     
     private func makeCategoryBorder() {
@@ -103,5 +123,37 @@ class DallaTopTenHeaderView: UIView {
             $0.width.equalTo(1)
             $0.height.equalTo(10)
         }
+    }
+}
+
+// MARK: Objc Methods
+
+extension DallaTopTenHeaderView {
+    @objc
+    private func categoryButtonTapped(_ sender: UIButton) {
+        
+        // isSelected 상태 초기화 후 sender만 isSelected true로 변경
+        let categoryButtonArray = [bjCategoryButton, fanCategoryButton, teamCategoryButton]
+        categoryButtonArray.forEach { button in
+            button.isSelected = false
+        }
+        
+        sender.isSelected = true
+        
+        var state: HeaderViewButtonState = .bj
+        
+        switch sender {
+        case bjCategoryButton:
+            state = .bj
+            
+        case fanCategoryButton:
+            state = .fan
+        case teamCategoryButton:
+            state = .team
+        default:
+            break
+        }
+        
+        self.delegate?.didTapHeaderButton(state: state)
     }
 }

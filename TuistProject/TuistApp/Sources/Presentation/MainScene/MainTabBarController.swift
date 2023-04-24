@@ -7,10 +7,12 @@
 //
 
 import UIKit
+
 import Alamofire
 
 class MainTabBarController: UITabBarController {
-    lazy var dallaVC = DallaMainViewController(dallaMainView: DallaMainView(), viewModel: DallaMainViewModel())
+    let viewModel = DallaMainViewModel()
+    lazy var dallaVC = DallaMainViewController(dallaMainView: DallaMainView(viewModel: viewModel), viewModel: viewModel)
     
     override func viewDidLoad() {
         super.viewDidLoad()

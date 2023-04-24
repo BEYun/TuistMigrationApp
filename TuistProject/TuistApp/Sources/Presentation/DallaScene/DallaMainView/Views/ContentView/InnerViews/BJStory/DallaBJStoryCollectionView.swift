@@ -7,6 +7,7 @@
 //
 
 import UIKit
+
 import SnapKit
 import Then
 
@@ -15,14 +16,13 @@ class DallaBJStoryCollectionView: UICollectionView {
 
     let collectionViewFlowLayout = UICollectionViewFlowLayout().then({
         $0.scrollDirection = .horizontal
-        $0.estimatedItemSize = UICollectionViewFlowLayout.automaticSize
         $0.minimumInteritemSpacing = 12
     })
     
     init() {
         super.init(frame: .zero, collectionViewLayout: self.collectionViewFlowLayout)
         setUpBJStoryCollectionView()
-        backgroundColor = .orange
+        backgroundColor = .white
     }
     
     required init?(coder: NSCoder) {

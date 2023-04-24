@@ -7,6 +7,7 @@
 //
 
 import UIKit
+
 import SnapKit
 import Then
 import Kingfisher
@@ -19,7 +20,6 @@ class DallaMainBannerCell: UICollectionViewCell {
     let bannerItemBadge = UIImageView()
     
     let bannerItemTitleLabel = UILabel().then {
-        $0.text = "하늘 닮은 DJ 늘 사랑 받는 아침방송"
         $0.textAlignment = .left
         $0.lineBreakMode = .byWordWrapping
         $0.numberOfLines = 0
@@ -28,7 +28,6 @@ class DallaMainBannerCell: UICollectionViewCell {
     }
     
     let bannerItemBJNameLabel = UILabel().then {
-        $0.text = "애 나𝒜𝓃𝓃𝒶 📻 🎧"
         $0.textAlignment = .left
         $0.font = UIFont(name: "SUIT-Regular", size: 14.0)
         $0.textColor = .black
@@ -37,7 +36,6 @@ class DallaMainBannerCell: UICollectionViewCell {
     override init(frame: CGRect) {
         super.init(frame: frame)
         initUI()
-        backgroundColor = .red
     }
     
     required init?(coder: NSCoder) {
@@ -48,27 +46,34 @@ class DallaMainBannerCell: UICollectionViewCell {
         super.prepareForReuse()
         prepare()
     }
-    
+
     // 셀 재사용을 위한 초기화
     private func prepare() {
-        bjBackgroundImageView.image = nil
-        bannerItemBadge.image = nil
-        bannerItemTitleLabel.text = nil
-        bannerItemBJNameLabel.text = nil
+        if let firstSublayer = bannerItemWrapperView.layer.sublayers?.first {
+             firstSublayer.removeFromSuperlayer()
+         }
     }
     
+    
     // cellForRowAt Delegate Method에 사용되는
-    func configure(bannerList: DallaBannerList) {
-        guard let backgroundImageURL = bannerList.backgroundImageURL else { return }
+    func configure(banner: DallaMainBanner) {
+        guard let backgroundImageURL = banner.backgroundImageURL else { return }
         guard let imgURL = URL(string: backgroundImageURL) else { return }
         
-        bjBackgroundImageView.kf.setImage(with: imgURL)
+        bjBackgroundImageView.kf.setImage(with: imgURL, placeholder: UIImage(named: "profile_none"))
         
-        if bannerList.badgeSpecial == 1 {
+        setGradientColor()
+        
+        if banner.badgeSpecial == 1 {
             bannerItemBadge.image = UIImage(named: "bdg_star")
         }
-        bannerItemTitleLabel.text = bannerList.title
-        bannerItemBJNameLabel.text = bannerList.memNick
+        bannerItemTitleLabel.text = banner.title
+        bannerItemBJNameLabel.text = banner.memNick
+    }
+    
+    func setGradientColor() {
+        let gradientColor = bannerItemWrapperView.makeGradientLayer(colors: GradientColor.bannerViewColors, locations: [0.0, 0.8, 1])
+        bannerItemWrapperView.layer.insertSublayer(gradientColor, at: 0)
     }
 
     private func initUI() {
@@ -123,5 +128,6 @@ class DallaMainBannerCell: UICollectionViewCell {
             $0.bottom.equalToSuperview().inset(Constraint.bjNameLabelBottom)
         }
     }
+    
 
 }

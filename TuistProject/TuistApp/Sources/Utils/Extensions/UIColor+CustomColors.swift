@@ -13,7 +13,7 @@ extension UIColor {
     
     static let grayFontColor = UIColor(red: 172 / 255, green: 172 / 255, blue: 172 / 255, alpha: 1)
     static let blackFontColor = UIColor(red: 32 / 255, green: 32 / 255, blue: 32 / 255, alpha: 1)
-    static let bjStoryBlackFontColor = UIColor(red: 48 / 255, green: 48 / 255, blue: 48 / 255, alpha: 1)
+    static let secondBlackFontColor = UIColor(red: 48 / 255, green: 48 / 255, blue: 48 / 255, alpha: 1)
     
     // MARK: Custom Background Color
     
@@ -21,4 +21,6 @@ extension UIColor {
     static let categoryBorderColor = UIColor(red: 204 / 255, green: 204 / 255, blue: 204 / 255, alpha: 1)
     static let bjStoryActiveBackgroundColor = UIColor(red: 255 / 255, green: 60 / 255, blue: 123 / 255, alpha: 1)
     static let bjStoryDeactiveBackgroundColor = UIColor(red: 225 / 255, green: 225 / 255, blue: 225 / 255, alpha: 1)
+    static let topTenProfileBackgroundColor = UIColor(red: 230 / 255, green: 230 / 255, blue: 230 / 255, alpha: 1)
+    static let topTenFooterBackgroundColor = UIColor(red: 255 / 255, green: 243 / 255, blue: 247 / 255, alpha: 1)
 }
