@@ -8,6 +8,8 @@
 
 import UIKit
 
+// MARK: Dalla UI 작업에 필요한 Constraints
+
 enum DallaDefaultConstraint {
     static let horizontalInset: CGFloat = 16
 }

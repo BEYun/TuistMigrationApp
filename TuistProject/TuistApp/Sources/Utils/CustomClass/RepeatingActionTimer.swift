@@ -8,6 +8,8 @@
 
 import UIKit
 
+// MARK: 특정 시간마다 completion을 실행하는 Timer 클래스
+
 enum TimerState {
     case suspended
     case resumed

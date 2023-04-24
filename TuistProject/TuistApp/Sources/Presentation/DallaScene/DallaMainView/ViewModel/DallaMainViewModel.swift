@@ -14,7 +14,7 @@ import SwiftyJSON
 class DallaMainViewModel {
     var bannerList: [DallaMainBanner] = []
     var bjStoryList: [DallaBJStory] = []
-    var topTenList: Observable<[DallaTopTenModel]> = Observable(bjDummy)
+    var topTenList: Observable<[DallaTopTen]> = Observable(bjDummy)
     var adBannerList: [DallaADBanner] = adBannerDummy
     
     // newBJList를 위한 랜덤 데이터

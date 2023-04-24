@@ -9,6 +9,7 @@
 import Foundation
 import Alamofire
 
+// case에 따른 networkConfig 생성
 enum DallaNetworkConfig {
     case rqBannerList
 }

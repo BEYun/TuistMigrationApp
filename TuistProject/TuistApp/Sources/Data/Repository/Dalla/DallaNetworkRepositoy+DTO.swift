@@ -10,7 +10,7 @@ import Foundation
 
 import SwiftyJSON
 
-//MARK: DallaBannerList의 response를 파싱할 수 있는 DTO
+//MARK: DallaBanner의 response를 파싱할 수 있는 DTO
 
 struct DallaBannerListDTO {
     let memNo: String

@@ -7,6 +7,8 @@
 
 import Foundation
 
+// MARK: URLSession을 이용한 네트워크 클래스, NetworkError라는 CustomError 생성
+
 enum NetworkError: Error {
     case invalidURL
     case requestError

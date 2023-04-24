@@ -8,6 +8,7 @@
 
 import Foundation
 
+// DallaScene에서 사용하는 상수
 enum DallaConstant {
     enum BJStory {
         case defaultCount

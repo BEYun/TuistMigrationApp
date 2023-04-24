@@ -80,7 +80,7 @@ class DallaTopTenScrollView: UIScrollView {
         }
     }
 
-    private func bjStackViewItemBinding(item: DallaBJStackViewItem, data: DallaTopTenModel) {
+    private func bjStackViewItemBinding(item: DallaBJStackViewItem, data: DallaTopTen) {
         item.profileImageView.image = data.profileImage
         item.profileNameLabel.text = data.memNick
         

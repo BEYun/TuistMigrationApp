@@ -10,6 +10,7 @@ import Foundation
 
 import Alamofire
 
+// 네트워크 URL과 Parameter, Headers를 가지는 클래스
 class NetworkConfig {
     let url: String
     let method: HTTPMethod

@@ -9,8 +9,8 @@
 import Foundation
 
 import Alamofire
-import SwiftyJSON
 
+// MARK: Alamofire를 이용한 네트워크 클래스
 class NetworkServiceAF {
     let networkConfig: NetworkConfig
     

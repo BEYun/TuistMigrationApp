@@ -14,7 +14,7 @@ enum LiveState {
     case none
 }
 
-struct DallaTopTenModel {
+struct DallaTopTen {
     let memNick: String
     let profileImage: UIImage?
     let liveButtonState: LiveState

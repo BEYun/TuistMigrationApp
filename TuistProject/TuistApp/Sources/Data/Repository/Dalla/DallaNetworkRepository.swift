@@ -10,6 +10,8 @@ import Foundation
 
 import SwiftyJSON
 
+// MARK: config 프로퍼티를 파라미터로 받은 NetworkServiceAF 클래스의 completion을 Result<JSON, Error> 타입으로 변환 후, completion으로 탈출시킴
+
 class DallaNetworkRepository {
     typealias ResultType = Result<JSON, Error>
     
