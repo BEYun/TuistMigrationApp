@@ -11,11 +11,11 @@ import Foundation
 struct DallaBJStory {
     let memNick: String
     let profileImageUrl: String?
-    let isChecked: Bool
+    let roomYn: String
     
-    init(memNick: String, profileImageUrl: String?, isChecked: Bool) {
+    init(memNick: String, profileImageUrl: String?, roomYn: String) {
         self.memNick = memNick
         self.profileImageUrl = profileImageUrl
-        self.isChecked = isChecked
+        self.roomYn = roomYn
     }
 }

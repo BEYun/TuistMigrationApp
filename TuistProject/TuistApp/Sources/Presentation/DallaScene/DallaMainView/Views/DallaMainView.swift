@@ -13,13 +13,13 @@ import SnapKit
 class DallaMainView: UIView {
     typealias Constraint = DallaMainConstraint
     
-    let viewModel: DallaMainViewModel
+    let viewModel: MainBannerViewModel
     
     let headerMenuView = DallaHeaderMenuView()
     let contentView: DallaContentView
     let footerView = DallaFooterView()
     
-    init(viewModel: DallaMainViewModel) {
+    init(viewModel: MainBannerViewModel) {
         self.viewModel = viewModel
         self.contentView = DallaContentView(viewModel: viewModel)
         super.init(frame: .zero)
@@ -47,9 +47,8 @@ class DallaMainView: UIView {
         headerMenuView.snp.makeConstraints {
             $0.leading.trailing.equalToSuperview()
             $0.top.equalToSuperview()
-            $0.height.equalTo(Constraint.headerViewHeight + UIApplication.shared.safeAreaEdgeInsets.top)
+            $0.height.equalTo(Constraint.headerViewHeight)
         }
-        headerMenuView.backgroundColor?.withAlphaComponent(0)
     }
     
     private func setUpContentView() {

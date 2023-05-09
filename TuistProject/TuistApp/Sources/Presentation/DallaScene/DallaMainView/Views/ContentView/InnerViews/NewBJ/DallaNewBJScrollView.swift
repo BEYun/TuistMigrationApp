@@ -11,15 +11,14 @@ import UIKit
 import Then
 
 class DallaNewBJScrollView: UIScrollView {
-    let viewModel: DallaMainViewModel
+    let viewModel = NewBJViewModel()
     
     let newBJStackView = UIStackView().then {
         $0.axis = .horizontal
         $0.spacing = 8
     }
     
-    init(viewModel: DallaMainViewModel) {
-        self.viewModel = viewModel
+    init() {
         super.init(frame: .zero)
         initUI()
     }

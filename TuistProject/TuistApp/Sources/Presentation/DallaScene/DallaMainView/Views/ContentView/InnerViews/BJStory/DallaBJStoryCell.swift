@@ -33,12 +33,16 @@ class DallaBJStoryCell: UICollectionViewCell {
     let remainingCountLabel = UILabel().then {
         $0.font = UIFont(name: "SUIT-Bold", size: 20.0)
         $0.textAlignment = .center
+        
     }
     
     let bjNameLabel = UILabel().then {
         $0.font = UIFont(name: "SUIT-Regular", size: 12.0)
         $0.textAlignment = .center
+        $0.text = ""
     }
+    
+    let gradientLayer = CAGradientLayer()
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -47,6 +51,11 @@ class DallaBJStoryCell: UICollectionViewCell {
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
+    }
+    
+    override func layoutSubviews() {
+        super.layoutSubviews()
+        setUpGradientLayer()
     }
     
     override func prepareForReuse() {
@@ -58,18 +67,10 @@ class DallaBJStoryCell: UICollectionViewCell {
     func prepare() {
         profileImageView.isHidden = false
         remainingCountWrapperView.isHidden = true
-        
-        // backgroundView 초기화
-        // subLayer가 gradientLayer이면, 제거하여
-        mainBackgroundView.layer.sublayers?
-            .filter { $0 is CAGradientLayer }
-            .forEach { $0.removeFromSuperlayer() }
-        
-        mainBackgroundView.layer.cornerRadius = 0
-        mainBackgroundView.backgroundColor = .clear
+        bjNameLabel.isHidden = false
     }
     
-    // MARK: Component Init Methods
+    // MARK: Init Component Methods
     
     private func initUI() {
         // addSubViews
@@ -133,31 +134,17 @@ class DallaBJStoryCell: UICollectionViewCell {
         remainingCountLabel.sizeToFit()
     }
     
-    func setGradientColor(isChecked: Bool) {
-        var gradientLayer: CAGradientLayer
-        
-        if isChecked {
-            gradientLayer = mainBackgroundView.makeGradientLayer(colors: GradientColor.deactivatedColors, locations: nil)
-        } else {
-            gradientLayer = mainBackgroundView.makeGradientLayer(colors: GradientColor.activatedColors, locations: nil)
-        }
-        
-        gradientLayer.cornerRadius = mainBackgroundView.bounds.width / 2
-        gradientLayer.zPosition = -1
-        mainBackgroundView.layer.addSublayer(gradientLayer)
-    }
-    
-    //MARK: CellForRowAt Methods
+    //MARK: Custom Methods
     
     // cell에 필요한 데이터 바인딩 메소드
     func configure(bjStory: DallaBJStory) {
         guard let profileImageURL = bjStory.profileImageUrl else { return }
         guard let imgURL = URL(string: profileImageURL) else { return }
         
-        profileImageView.kf.setImage(with: imgURL, placeholder: UIImage(named: "profile_none"))
+        profileImageView.kf.setImage(with: imgURL, placeholder: TuistAppAsset.profileNone.image)
         bjNameLabel.text = bjStory.memNick
         
-        setGradientColor(isChecked: bjStory.isChecked)
+        addGradientColor(roomYn: bjStory.roomYn)
     }
 
     func configureRemainingCount(count: Int) {
@@ -165,15 +152,23 @@ class DallaBJStoryCell: UICollectionViewCell {
         remainingCountWrapperView.isHidden = false
         remainingCountLabel.text = "+" + String(count)
         
-        prepareComponent()
-        
+        gradientLayer.colors = nil
+        bjNameLabel.isHidden = true
+    }
+
+    private func addGradientColor(roomYn: String) {
+        if roomYn == "n" {
+            gradientLayer.colors = GradientColor.deactivatedColors
+        } else {
+            gradientLayer.colors = GradientColor.activatedColors
+        }
     }
     
-    // cell의 UI 재사용을 위한 초기화
-    private func prepareComponent() {
-        // nameLabel 초기화
-        bjNameLabel.text = " "
-        
+    private func setUpGradientLayer() {
+        if gradientLayer.frame != mainBackgroundView.bounds {
+            gradientLayer.frame = mainBackgroundView.bounds
+            gradientLayer.cornerRadius = mainBackgroundView.bounds.width / 2
+            mainBackgroundView.layer.insertSublayer(gradientLayer, at: 0)
+        }
     }
-    
 }

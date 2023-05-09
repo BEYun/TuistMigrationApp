@@ -11,8 +11,7 @@ import UIKit
 import Alamofire
 
 class MainTabBarController: UITabBarController {
-    let viewModel = DallaMainViewModel()
-    lazy var dallaVC = DallaMainViewController(dallaMainView: DallaMainView(viewModel: viewModel), viewModel: viewModel)
+    lazy var dallaVC = DallaMainViewController(viewModel: MainBannerViewModel())
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -22,6 +21,6 @@ class MainTabBarController: UITabBarController {
     private func initControllers() {
         self.viewControllers?.append(dallaVC)
         
-        dallaVC.tabBarItem = UITabBarItem(title: "달라", image: UIImage(named: "Dalla_icon"), selectedImage: nil)
+        dallaVC.tabBarItem = UITabBarItem(title: "달라", image: TuistAppAsset.dallaIcon.image, selectedImage: nil)
     }
 }

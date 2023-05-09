@@ -33,6 +33,8 @@ class DallaMainBannerCell: UICollectionViewCell {
         $0.textColor = .black
     }
     
+    let gradientLayer = CAGradientLayer()
+    
     override init(frame: CGRect) {
         super.init(frame: frame)
         initUI()
@@ -42,40 +44,13 @@ class DallaMainBannerCell: UICollectionViewCell {
         fatalError("init(coder:) has not been implemented")
     }
     
-    override func prepareForReuse() {
-        super.prepareForReuse()
-        prepare()
-    }
-
-    // 셀 재사용을 위한 초기화
-    private func prepare() {
-        if let firstSublayer = bannerItemWrapperView.layer.sublayers?.first {
-             firstSublayer.removeFromSuperlayer()
-         }
+    override func layoutSubviews() {
+        super.layoutSubviews()
+        setUpGradientLayer()
     }
     
+    // MARK: Init UI Component Methods
     
-    // cellForRowAt Delegate Method에 사용되는
-    func configure(banner: DallaMainBanner) {
-        guard let backgroundImageURL = banner.backgroundImageURL else { return }
-        guard let imgURL = URL(string: backgroundImageURL) else { return }
-        
-        bjBackgroundImageView.kf.setImage(with: imgURL, placeholder: UIImage(named: "profile_none"))
-        
-        setGradientColor()
-        
-        if banner.badgeSpecial == 1 {
-            bannerItemBadge.image = UIImage(named: "bdg_star")
-        }
-        bannerItemTitleLabel.text = banner.title
-        bannerItemBJNameLabel.text = banner.memNick
-    }
-    
-    func setGradientColor() {
-        let gradientColor = bannerItemWrapperView.makeGradientLayer(colors: GradientColor.bannerViewColors, locations: [0.0, 0.8, 1])
-        bannerItemWrapperView.layer.insertSublayer(gradientColor, at: 0)
-    }
-
     private func initUI() {
         // addSubViews
         addSubview(bjBackgroundImageView)
@@ -103,7 +78,7 @@ class DallaMainBannerCell: UICollectionViewCell {
         bannerItemWrapperView.snp.makeConstraints {
             $0.leading.equalToSuperview()
             $0.bottom.trailing.equalToSuperview()
-            $0.height.equalToSuperview().multipliedBy(0.4)
+            $0.height.equalTo(Constraint.infoViewHeight)
         }
     }
     
@@ -129,5 +104,28 @@ class DallaMainBannerCell: UICollectionViewCell {
         }
     }
     
-
+    // MARK: Custom Methods
+    
+    // cellForRowAt Delegate Method에 사용되는 Method
+    func configure(banner: DallaMainBanner) {
+        guard let backgroundImageURL = banner.backgroundImageURL else { return }
+        guard let imgURL = URL(string: backgroundImageURL) else { return }
+        
+        bjBackgroundImageView.kf.setImage(with: imgURL, placeholder: TuistAppAsset.profileNone.image)
+        
+        if banner.badgeSpecial == 1 {
+            bannerItemBadge.image = TuistAppAsset.bdgStar.image
+        }
+        bannerItemTitleLabel.text = banner.title
+        bannerItemBJNameLabel.text = banner.memNick
+    }
+    
+    func setUpGradientLayer() {
+        if gradientLayer.frame != bannerItemWrapperView.bounds {
+            gradientLayer.frame = bannerItemWrapperView.bounds
+            gradientLayer.colors = GradientColor.bannerViewColors
+            gradientLayer.locations = [0.0, 0.8, 1]
+            bannerItemWrapperView.layer.insertSublayer(gradientLayer, at: 0)
+        }
+    }
 }

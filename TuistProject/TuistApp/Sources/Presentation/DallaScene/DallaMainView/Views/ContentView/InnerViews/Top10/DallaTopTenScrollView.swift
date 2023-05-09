@@ -13,7 +13,7 @@ import Then
 
 class DallaTopTenScrollView: UIScrollView {
     
-    let viewModel: DallaMainViewModel
+    let viewModel: TopTenViewModel
     
     let bjStackView = UIStackView().then {
         $0.axis = .horizontal
@@ -21,7 +21,7 @@ class DallaTopTenScrollView: UIScrollView {
     }
 
     
-    init(viewModel: DallaMainViewModel) {
+    init(viewModel: TopTenViewModel) {
         self.viewModel = viewModel
         super.init(frame: .zero)
         initUI()
@@ -86,9 +86,9 @@ class DallaTopTenScrollView: UIScrollView {
         
         switch data.liveButtonState {
         case .live:
-            item.liveButton.setImage(UIImage(named: "btn_mini_live"), for: .normal)
+            item.liveButton.setImage(TuistAppAsset.btnMiniLive.image, for: .normal)
         case .listen:
-            item.liveButton.setImage(UIImage(named: "btn_mini_listen"), for: .normal)
+            item.liveButton.setImage(TuistAppAsset.btnMiniListen.image, for: .normal)
         default:
             break
         }

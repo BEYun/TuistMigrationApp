@@ -11,15 +11,14 @@ import UIKit
 class DallaTopTenView: UIView {
     typealias Constraint = DallaTopTenConstraint
     
-    let viewModel: DallaMainViewModel
+    let viewModel = TopTenViewModel()
     
     let topTenHeaderView = DallaTopTenHeaderView()
     let topTenScrollView: DallaTopTenScrollView
     let topTenFooterView = DallaTopTenFooterView()
 
     
-    init(viewModel: DallaMainViewModel) {
-        self.viewModel = viewModel
+    init() {
         self.topTenScrollView = DallaTopTenScrollView(viewModel: viewModel)
         self.topTenHeaderView.delegate = viewModel
         super.init(frame: .zero)

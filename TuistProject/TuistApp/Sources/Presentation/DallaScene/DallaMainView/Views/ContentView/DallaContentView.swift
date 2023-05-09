@@ -14,27 +14,23 @@ import Then
 class DallaContentView: UIScrollView {
     typealias Constraint = DallaContentViewConstraint
     
-    let viewModel: DallaMainViewModel
-    
+    let viewModel: MainBannerViewModel
+
     let contentStackView = UIStackView().then {
         $0.axis = .vertical
-        
+        $0.distribution = .fill
     }
     
-    let mainBannerCollectionView = DallaMainBannerCollectionView()
-    
+    let mainBannerCollectionView: DallaMainBannerCollectionView
     let bjStoryCollectionView = DallaBJStoryCollectionView()
+    let topTenView = DallaTopTenView()
+    let newBJView = DallaNewBJView()
+    let eventBannerCollectionView = DallaEventBannerCollectionView()
+    let liveView = DallaLiveRoomView()
     
-    let topTenView: DallaTopTenView
-    
-    let newBJView: DallaNewBJView
-    
-    let adBannerCollectionView = DallaADBannerCollectionView()
-    
-    init(viewModel: DallaMainViewModel) {
+    init(viewModel: MainBannerViewModel) {
         self.viewModel = viewModel
-        self.topTenView = DallaTopTenView(viewModel: viewModel)
-        self.newBJView = DallaNewBJView(viewModel: viewModel)
+        self.mainBannerCollectionView = DallaMainBannerCollectionView(viewModel: viewModel)
         super.init(frame: .zero)
         initUI()
     }
@@ -42,15 +38,17 @@ class DallaContentView: UIScrollView {
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
+
     
     private func initUI() {
-        let viewArray = [mainBannerCollectionView, bjStoryCollectionView, topTenView, newBJView, adBannerCollectionView]
+        let viewArray = [mainBannerCollectionView, bjStoryCollectionView, topTenView, newBJView, eventBannerCollectionView, liveView]
+        
+        addSubview(contentStackView)
         
         // addSubViews
         viewArray.forEach { view in
             contentStackView.addArrangedSubview(view)
         }
-        addSubview(contentStackView)
         
         // SnapKit Layout Methods
         setUpContentStackView()
@@ -58,7 +56,8 @@ class DallaContentView: UIScrollView {
         setUpBJStoryCollectionView()
         setUpTopTenView()
         setUpNewBJView()
-        setUpADBannerCollectionViews()
+        setUpEventBannerCollectionView()
+        setUpLiveView()
     }
     
     private func setUpContentStackView() {
@@ -71,7 +70,6 @@ class DallaContentView: UIScrollView {
     private func setUpMainBannerCollectionView() {
         mainBannerCollectionView.snp.makeConstraints {
             $0.top.leading.trailing.equalToSuperview()
-            $0.leading.trailing.equalToSuperview()
             $0.height.equalTo(Constraint.mainBannerViewHeight)
         }
     }
@@ -99,12 +97,24 @@ class DallaContentView: UIScrollView {
             $0.height.equalTo(Constraint.newBJViewHeight + Constraint.newBJTopOffset)
         }
     }
-    private func setUpADBannerCollectionViews() {
-        adBannerCollectionView.snp.makeConstraints {
+    private func setUpEventBannerCollectionView() {
+        eventBannerCollectionView.snp.makeConstraints {
             $0.leading.trailing.equalToSuperview()
             $0.top.equalTo(newBJView.snp.bottom)
             $0.height.equalTo(Constraint.adBannerHeight + Constraint.adBannerTopOffset)
-            $0.bottom.equalToSuperview()
         }
+    }
+    
+    private func setUpLiveView() {
+        liveView.snp.makeConstraints {
+            $0.leading.trailing.bottom.equalToSuperview()
+            $0.top.equalTo(eventBannerCollectionView.snp.bottom)
+            $0.height.equalTo(((DallaLiveRoomConstraint.cellHeight + DallaLiveRoomConstraint.lineSpacing) * 30)
+                              + DallaLiveRoomConstraint.totalHeaderViewHeight)
+        }
+    }
+    
+    deinit {
+        print("DallaContentView Deinit")
     }
 }

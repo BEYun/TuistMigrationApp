@@ -23,4 +23,11 @@ class NetworkConfig {
         self.parameter = nil
         self.headers = headers
     }
+    
+    init(url: String, method: HTTPMethod, parameter: [String: Any], headers: HTTPHeaders) {
+        self.url = url
+        self.method = method
+        self.parameter = parameter
+        self.headers = headers
+    }
 }

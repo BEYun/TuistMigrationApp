@@ -24,10 +24,8 @@ protocol RepeatingTimer {
     func cancelTimer()
 }
 
-
 class RepeatingActionTimer: RepeatingTimer {
     var timer = DispatchSource.makeTimerSource(flags: [], queue: DispatchQueue.main)
-    
     var timerState: TimerState = .resumed
     
     func makeTimer(deadline: DispatchTime, repeating: Int, completion: @escaping () -> Void) {

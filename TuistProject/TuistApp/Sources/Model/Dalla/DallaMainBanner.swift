@@ -20,4 +20,11 @@ struct DallaMainBanner {
         self.badgeSpecial = badgeSpecial
         self.backgroundImageURL = backgroundImageURL
     }
+    
+    init() {
+        self.memNick = ""
+        self.title = nil
+        self.badgeSpecial = 0
+        self.backgroundImageURL = nil
+    }
 }

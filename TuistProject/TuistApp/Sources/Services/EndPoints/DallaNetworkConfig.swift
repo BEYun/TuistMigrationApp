@@ -12,6 +12,9 @@ import Alamofire
 // case에 따른 networkConfig 생성
 enum DallaNetworkConfig {
     case rqBannerList
+    case rqMyStarList
+    case rqEventBannerList
+    case rqRoomList
 }
 
 extension DallaNetworkConfig {
@@ -19,19 +22,27 @@ extension DallaNetworkConfig {
         switch self {
         case .rqBannerList:
             return DallaNetworkConfig.makeDallaURL("/RqBannerList")
+        case .rqMyStarList:
+            return DallaNetworkConfig.makeDallaURL("/RqMyStarList")
+        case .rqEventBannerList:
+            return DallaNetworkConfig.makeDallaURL("/RqEventBannerList")
+        case .rqRoomList:
+            return DallaNetworkConfig.makeDallaURL("/RqRoomList")
         }
     }
     
     var method: HTTPMethod {
         switch self {
-        case .rqBannerList:
+        case .rqBannerList, .rqMyStarList, .rqEventBannerList:
             return HTTPMethod.get
+        case .rqRoomList:
+            return HTTPMethod.post
         }
     }
     
     var headers: HTTPHeaders {
         switch self {
-        case .rqBannerList:
+        default:
             return ["Content-Type": "application/json"]
         }
     }

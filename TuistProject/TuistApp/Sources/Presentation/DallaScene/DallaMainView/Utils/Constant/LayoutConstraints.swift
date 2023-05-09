@@ -15,14 +15,14 @@ enum DallaDefaultConstraint {
 }
 
 enum DallaMainConstraint{
-    static let headerViewHeight: CGFloat = 52
+    static let headerViewHeight: CGFloat = 52 + UIApplication.shared.safeAreaEdgeInsets.top
     static let footerViewHeight: CGFloat = 50
 }
 
 enum DallaHeaderConstraint {
     static let headerButtonSize: CGFloat = 40
-    static let headerStackVertical: CGFloat = 6
-    static let headerStackTrailing: CGFloat = 8
+    static let headerStackVerticalInset: CGFloat = 6
+    static let headerStackTrailingInset: CGFloat = 8
 }
 
 enum DallaContentViewConstraint {
@@ -30,7 +30,7 @@ enum DallaContentViewConstraint {
     static let bjStoryViewHeight: CGFloat = 120
     static let topTenViewHeight: CGFloat = 260
     static let newBJViewHeight: CGFloat = 192
-    static let adBannerHeight: CGFloat = DallaADBannerConstraint.bannerCellHeight
+    static let adBannerHeight: CGFloat = DallaEventBannerConstraint.bannerCellHeight
     
     // Vertical Offsets
     static let topTenOffset: CGFloat = 15
@@ -47,6 +47,7 @@ enum DallaFooterConstraint {
 enum DallaMainBannerConstraint {
     static let mainCellSize: CGFloat = UIScreen.main.bounds.width
     static let infoViewLeading: CGFloat = 17
+    static let infoViewHeight: CGFloat = mainCellSize * 0.3
     static let bjNameLabelBottom: CGFloat = 14
     static let itemTitleBottom: CGFloat = 9
     static let itemBadgeBottom: CGFloat = 8
@@ -61,7 +62,7 @@ enum DallaBJStoryConstraint {
 }
 
 enum DallaTopTenConstraint {
-    static let categoryStackViewWidth: CGFloat = 107
+    static let categoryStackViewWidth: CGFloat = 124
     static let headerViewHeight: CGFloat = 26
     static let scrollViewHeight: CGFloat = 183
     static let scrollViewTopOffset: CGFloat = 12
@@ -93,7 +94,16 @@ enum DallaNewBJViewConstraint {
     static let scrollViewTopOffset: CGFloat = 12
 }
 
-enum DallaADBannerConstraint {
+enum DallaEventBannerConstraint {
     static let bannerCellWidth: CGFloat = UIScreen.main.bounds.width
     static let bannerCellHeight: CGFloat = 115
+}
+
+enum DallaLiveRoomConstraint {
+    static let cellWidth: CGFloat = UIScreen.main.bounds.width
+    static let cellHeight: CGFloat = 112
+    static let lineSpacing: CGFloat = 12
+    static let headerHeight: CGFloat = 78
+    static let collectionViewOffset: CGFloat = 12
+    static let totalHeaderViewHeight: CGFloat = headerHeight + collectionViewOffset
 }

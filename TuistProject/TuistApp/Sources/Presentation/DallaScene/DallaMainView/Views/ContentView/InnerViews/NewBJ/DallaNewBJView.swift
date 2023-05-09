@@ -14,15 +14,11 @@ import Then
 class DallaNewBJView: UIView {
     typealias Constraint = DallaNewBJViewConstraint
     
-    let viewModel: DallaMainViewModel
-    
     let newBJHeaderView = DallaNewBJHeaderView()
 
-    let newBJScrollView: DallaNewBJScrollView
+    let newBJScrollView = DallaNewBJScrollView()
 
-    init(viewModel: DallaMainViewModel) {
-        self.viewModel = viewModel
-        self.newBJScrollView = DallaNewBJScrollView(viewModel: viewModel)
+    init() {
         super.init(frame: .zero)
         initUI()
     }

@@ -145,7 +145,6 @@ extension DallaTopTenHeaderView {
         switch sender {
         case bjCategoryButton:
             state = .bj
-            
         case fanCategoryButton:
             state = .fan
         case teamCategoryButton:

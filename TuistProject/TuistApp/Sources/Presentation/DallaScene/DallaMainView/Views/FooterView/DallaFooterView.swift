@@ -11,33 +11,39 @@ import UIKit
 import SnapKit
 import Then
 
+protocol PlusButtonDelegate: AnyObject {
+    func plusButtonTapped()
+}
+
 class DallaFooterView: UIView {
     
     typealias Constraint = DallaFooterConstraint
 
     let liveButton = UIButton().then {
-        $0.setImage(UIImage(named: "footer_live"), for: .normal)
+        $0.setImage(TuistAppAsset.footerLive.image, for: .normal)
     }
     
     let clipButton = UIButton().then {
-        $0.setImage(UIImage(named: "footer_clip_d"), for: .normal)
+        $0.setImage(TuistAppAsset.footerClipD.image, for: .normal)
     }
     
     let plusButton = UIButton().then {
-        $0.setImage(UIImage(named: "footer_plus"), for: .normal)
+        $0.setImage(TuistAppAsset.footerPlus.image, for: .normal)
     }
     
     let searchButton = UIButton().then {
-        $0.setImage(UIImage(named: "footer_search_d"), for: .normal)
+        $0.setImage(TuistAppAsset.footerSearchD.image, for: .normal)
     }
     
     let myButton = UIButton().then {
-        $0.setImage(UIImage(named: "footer_my_d"), for: .normal)
+        $0.setImage(TuistAppAsset.footerMyD.image, for: .normal)
     }
     
     let footerStackView = UIStackView().then {
         $0.distribution = .equalSpacing
     }
+    
+    weak var delegate: PlusButtonDelegate?
     
     private func initUI() {
         backgroundColor = .white
@@ -82,6 +88,8 @@ class DallaFooterView: UIView {
         plusButton.snp.makeConstraints {
             $0.width.height.equalTo(Constraint.footerButtonSize)
         }
+        
+        plusButton.addTarget(self, action: #selector(plusButtonTapped), for: .touchUpInside)
     }
     
     private func setUpSearchButton() {
@@ -106,4 +114,11 @@ class DallaFooterView: UIView {
     }
     
    
+}
+
+extension DallaFooterView {
+    @objc
+    private func plusButtonTapped() {
+        delegate?.plusButtonTapped()
+    }
 }

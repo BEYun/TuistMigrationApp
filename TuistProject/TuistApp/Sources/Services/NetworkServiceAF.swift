@@ -25,6 +25,7 @@ class NetworkServiceAF {
         AF.request(networkConfig.url,
                    method: networkConfig.method,
                    parameters: networkConfig.parameter,
+                   encoding: JSONEncoding.default,
                    headers: networkConfig.headers)
         .validate(statusCode: 200..<300)
         .responseDecodable(of: T.self) { response in
@@ -37,5 +38,3 @@ class NetworkServiceAF {
         }
     }
 }
-
-                                   

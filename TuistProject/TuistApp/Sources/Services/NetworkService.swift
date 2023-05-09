@@ -84,7 +84,7 @@ extension NetworkService: APINetworkService {
     // 1. Request 요청에 따른 task에 대해 에러를 체크
     // 2. result에 따라 completion에 .success -> decoding 작업 수행, .failure -> error 반환 작업 수행
     // 3. NetworkService 클래스를 프로퍼티로 가지는 클래스(예, ChatGPTNetworkRepository)에서 제네릭 타입 선언 가능
-    func networkRequest<T: Decodable>(request: URLRequest, completion: @escaping completionHandler<T>) {
+    func networkRequest<T: Decodable>(request: URLRequest, completion: @escaping (Result<T, NetworkError>) -> Void) {
         let task = URLSession.shared.dataTask(with: request) { [weak self] data, response, error in
             self?.checkError(data: data, response: response, error: error, completion: { result in
                 switch result {
