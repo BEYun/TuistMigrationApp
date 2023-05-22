@@ -23,8 +23,6 @@ class DallaEventBannerCollectionView: UICollectionView {
         $0.minimumLineSpacing = 0
         $0.minimumInteritemSpacing = 0
     })
-    
-    let label = UILabel()
 
     init() {
         super.init(frame: .zero, collectionViewLayout: self.collectionViewFlowLayout)
